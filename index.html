@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls in ICT Day Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .granted {
+            color: green;
+        }
+        .denied {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI For Development Quiz</h1>
+        <p id="question">What is the first word?</p>
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <br>
+        <button onclick="checkAnswer()">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let step = 1;
+        const questions = [
+            "What is the first word?",
+            "What is the second word?",
+            "What is the third word?"
+        ];
+        const answers = [
+            "one",
+            "in",
+            "ict"
+        ];
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+            const resultDiv = document.getElementById('result');
+            let correct = false;
+            if (step === 1 && userAnswer === answers[0]) correct = true;
+            else if (step === 2 && userAnswer === answers[1]) correct = true;
+            else if (step === 3 && userAnswer === answers[2]) correct = true;
+
+            if (correct) {
+                step++;
+                if (step <= 3) {
+                    resultDiv.textContent = 'Congratulations! You Have Passed This Level!';
+                    resultDiv.className = 'granted';
+                    document.getElementById('question').textContent = questions[step-1];
+                    document.getElementById('answer').value = '';
+                } else {
+                    document.getElementById('question').style.display = 'none';
+                    document.getElementById('answer').style.display = 'none';
+                    document.querySelector('button').style.display = 'none';
+                    resultDiv.innerHTML = 'Congratulations! You have successfully entered all the words. The combined phrase is: Girls In ICT';
+                    resultDiv.className = 'granted';
+                }
+            } else {
+                resultDiv.textContent = 'Access Denied';
+                resultDiv.className = 'denied';
+            }
+        }
+    </script>
+</body>
+</html>
